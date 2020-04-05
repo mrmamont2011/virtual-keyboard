@@ -3,6 +3,7 @@ if (!(lang !== undefined)) { lang = 'ENG'; }
 
 
 
+
 const Keyboard_arr = [
 
     ['`', '~', 'ё', 'Ё', 'Backquote', 1, 'key_40px'],
@@ -292,7 +293,6 @@ function mouseOnShift() {
     document.addEventListener('keyup', (event) => {
     let el= document.getElementById(event.code);
 
-         console.log(event.code);
           el.classList.remove('keyOn');
           el.classList.add('keyOff');
         
