@@ -1,7 +1,5 @@
 let { lang } = window.sessionStorage;
 if (!(lang !== undefined)) { lang = 'ENG'; }
-let OnShift = false;
-let OnCapsLock = false;
 
 
 
@@ -71,6 +69,8 @@ const Keyboard_arr = [
     ['→', '→', '→', '→', 'ArrowRight', 5,'key_40px'], 
 ];
   
+let OnShift = false;
+let OnCapsLock = false;
 
 function createTextArea() {
     const section= document.createElement('section');
@@ -78,8 +78,8 @@ function createTextArea() {
     document.body.append(section);
     const textArea = document.createElement('textarea');
     textArea.id = 'textarea';
-    textArea.rows = '15';
-    textArea.cols = '60';
+    textArea.rows = '10';
+    textArea.cols = '52';
     textArea.setAttribute('readonly', 'readonly');
     document.getElementsByClassName('container')[0].prepend(textArea);
     const creatKeyboard = document.createElement('div');
@@ -88,7 +88,10 @@ function createTextArea() {
     const comment = document.createElement('p');
     comment.innerHTML = 'Клавиатура для Windows. Смена языка (ALT + SHIFT) слева ';
     document.getElementById('key').after(comment);
-  }
+    
+
+
+}
 
 
 
@@ -209,24 +212,109 @@ function mouseOnShift() {
                 
             
                 if (event.target.id === el.id && el.id === 'Backspace' ) {
+                    cursorDel();
                     document.getElementById('textarea').value = document.getElementById('textarea').value.slice(0, -1);
+                    cursorAdd();
                 }
                 
                 
-                if (event.target.id === el.id && el.id !== 'Backspace') {
-                    if (el.id === 'Enter') { document.getElementById('textarea').value += '\n';
-                    } else if (el.id === 'Tab') {document.getElementById('textarea').value += '\t';
+                if (event.target.id === el.id && el.id !== 'Backspace'
+                && el.id !== 'CapsLock'&& el.id !== 'ShiftLeft'&& el.id !== 'ShiftRight'
+                && el.id !== 'ControlLeft'&& el.id !== 'AltLeft'&& el.id !== 'AltRight' && el.id !== 'ControlRight') {
+                    if (el.id === 'Enter') { 
+                      cursorDel();
+                      document.getElementById('textarea').value += '\n';
+                      cursorAdd();
+                    } else if (el.id === 'Tab') {
+                      cursorDel();
+                      document.getElementById('textarea').value += '\t';
+                      cursorAdd();
                     } else {
+                    cursorDel();
                     document.getElementById('textarea').value += el.textContent;
+                    cursorAdd();
                     }
                 }
         });
 
     });
     
-    
+    document.addEventListener('keydown', (event) => {
+      let el= document.getElementById(event.code);
+          el.classList.remove('keyOff');
+          el.classList.add('keyOn');
+          if (el.id === 'AltLeft' || el.id === 'AltRight') event.returnValue = false;
+     
+      
+      if (el.id === 'Enter') {
+        cursorDel();
+        document.getElementById('textarea').value += '\n';
+        cursorAdd();
+      } else if (el.id === 'ShiftLeft' || el.id === 'ShiftRight') {
+        OnShift = true;
+        drawLetter();
+      } else if (el.id === 'CapsLock') {
+        OnCapsLock = !(OnCapsLock);
 
+            if (OnCapsLock) {
+              document.getElementById('CapsLock').classList.add('OnCapsLock');
+            } else {
+              document.getElementById('CapsLock').classList.remove('OnCapsLock');
+            }
+
+        drawLetter();
+      } else if (el.id === 'Backspace' ) {
+        cursorDel();
+        document.getElementById('textarea').value = document.getElementById('textarea').value.slice(0, -1);
+        cursorAdd();
+        drawLetter();
+      } else if (el.id === 'Tab') {
+        cursorDel();
+        let elTab = document.getElementById('textarea');
+        let v=elTab.value,s=elTab.selectionStart,e=elTab.selectionEnd;
+        elTab.value=v.substring(0, s)+"\t"+v.substring(e);
+        elTab.selectionStart=elTab.selectionEnd=s+1;
+        cursorAdd();
+        event.returnValue = false;
+      } 
+
+      if ( el.id !== 'Backspace' && el.id !== 'CapsLock'&& el.id !== 'ShiftLeft'&& el.id !== 'ShiftRight' 
+                && el.id !== 'Enter' && el.id !== 'Tab'
+                && el.id !== 'ControlLeft'&& el.id !== 'AltLeft'&& el.id !== 'AltRight' && el.id !== 'ControlRight') {
+                  cursorDel();
+                  document.getElementById('textarea').value += el.textContent;
+                  cursorAdd();
+                  event.returnValue = false;
+                }
+
+    });
+
+    document.addEventListener('keyup', (event) => {
+    let el= document.getElementById(event.code);
+
+         console.log(event.code);
+          el.classList.remove('keyOn');
+          el.classList.add('keyOff');
+        
+
+      if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+        OnShift = false;
+        drawLetter();
+      }
+    });
+  
+  
   }
+
+  function cursorAdd(){
+    document.getElementById('textarea').value += '█';
+  }
+
+  function cursorDel(){
+    document.getElementById('textarea').value = document.getElementById('textarea').value.slice(0, -1);
+  }
+
+  
 
 
   
@@ -235,16 +323,15 @@ function mouseOnShift() {
 
 function startJs() {
     createTextArea(); 
+    cursorAdd();
     drawKeyboard();
     drawLetter();
     mouseOnShift(); 
     switchLang();
     enterText();
     onCapsLock();
-  
+      
    
-   
-    
   }
   
   window.onload = startJs;

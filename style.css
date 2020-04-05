@@ -1,18 +1,21 @@
 .container {
     width: 600px;
-    margin: 0 auto;
+    margin: 20px auto;
     font-family: 'Roboto', sans-serif;
 }
 
 #key {
     display: flex;
     flex-wrap: wrap;
-    padding: 0px;
-    margin-top: 0px;
-    border-radius: 0px;
+    margin-top: 20px;
     background-color: rgb(255, 162, 101);
 }
 
+#textarea {
+ 
+    font-size: 20px;
+
+}
 .lineKey {
     
     display: flex;
@@ -26,28 +29,53 @@
 .keyOff {
 
 background: rgb(103, 211, 117);
-
 display: flex;
 justify-content: center;
 align-items: center;
 font-size: 17px;
 cursor: pointer;
-/*user-select: none;
-border-radius: 2px;*/
 border: 2px solid rgb(255, 145, 0);
 box-sizing: border-box;
-transition: 0.2s;
+/*transition: 0.4s;*/
 
 }
+
+.keyOn {
+
+    background: rgb(107, 255, 8);
+    color: rgb(6, 88, 241);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    cursor: pointer;
+    border: 2px solid rgb(12, 109, 255);
+    box-sizing: border-box;
+    transition: 0.1s;
+    border-radius: 20px;
+    
+    }
 
 .keyOff:hover {
     border: 2px solid rgb(12, 109, 255);
+    transition: 0.2s;
+ 
 }
+
+.keyOff:active {
+    color: rgb(6, 88, 241);
+    background: rgb(107, 255, 8);
+    transition: 0.1s;
+    border-radius: 20px;
+
+}
+
 
 .OnCapsLock {
     color: rgb(6, 88, 241);
     background: rgb(107, 255, 8);
-    transition: 0.2s;
+    /*transition: 0.4s;*/
+    border-radius: 20px;
 }
 
 
