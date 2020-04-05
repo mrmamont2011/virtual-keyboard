@@ -1,0 +1,95 @@
+.container {
+    width: 600px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+#key {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    margin-top: 0px;
+    border-radius: 0px;
+    background-color: rgb(255, 162, 101);
+}
+
+.lineKey {
+    
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+     
+      
+}
+
+
+.keyOff {
+
+background: rgb(103, 211, 117);
+
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 17px;
+cursor: pointer;
+/*user-select: none;
+border-radius: 2px;*/
+border: 2px solid rgb(255, 145, 0);
+box-sizing: border-box;
+transition: 0.2s;
+
+}
+
+.keyOff:hover {
+    border: 2px solid rgb(12, 109, 255);
+}
+
+.OnCapsLock {
+    color: rgb(6, 88, 241);
+    background: rgb(107, 255, 8);
+    transition: 0.2s;
+}
+
+
+.key_40px {
+    width: 40px;
+    height: 40px;
+}
+
+.key_50px {
+    width: 50px;
+    height: 40px;
+}
+
+.key_60px {
+    width: 60px;
+    height: 40px;
+}
+
+
+.key_86px {
+    width: 86px;
+    height: 40px;
+
+}
+
+.key_90px {
+    width: 90px;
+    height: 40px;
+
+}
+
+.key_100px {
+    width: 100px;
+    height: 40px;
+
+}
+
+.key_292px {
+    width: 292px;
+    height: 40px;
+
+}
+
+
+
